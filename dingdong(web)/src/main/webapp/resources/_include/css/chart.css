@@ -1,0 +1,128 @@
+.page-alternate {
+	background-color:#fff; 
+}
+
+.clear {
+	clear: both;
+}
+
+.title-page {
+	margin-bottom: 50px;
+}
+
+.chart-title {
+	color: rgb(236,121,154);
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+#div-chart-btn, .div-chart {
+	display: inline-block;
+	margin-bottom: 40px;
+}
+
+.div-chart {
+	border: #f4c1c1 solid 4px;
+	border-radius: 20px;
+	padding: 30px;
+}
+
+.div-chart-container {
+	text-align: center;
+}
+
+#div-chart-btn {
+	float: right;
+	margin-bottom: 60px;
+}
+
+#div-round-chart {
+	margin-left: 7%;
+	float:left;
+}
+
+#div-round-chart2 {
+	margin-right: 7%;
+	float:right;
+}
+
+.chart-btn {
+	background: #fff;
+	border-radius: 60px;
+	border: 3px solid #ccc;
+}		
+         
+.wrapper {
+  display: block;
+  margin: 5em auto;
+  border: 1px solid #555;
+  width: 700px;
+  height: 350px;
+  position: relative;
+}
+
+p {
+  text-align: center;
+}
+
+.label {
+  height: 1em;
+  padding: 0.3em;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  display: none;
+  color: #333;
+}
+ 
+.labels > text {
+  font-size: 30px;
+}
+
+.chart-wrapper {
+  width: 700px;
+  height: 450px;
+  position: relative;
+  overflow: visible;
+}
+ 
+.chart-wrapper2 {
+  width: 700px;
+  height: 450px;
+  position: relative;
+  overflow: visible;
+}
+
+path {
+  stroke: #fff;
+  cursor: pointer;
+  -webkit-transition: fill 250ms;
+  transition: fill 250ms;
+}
+
+path:hover {
+  fill: #fff;
+}
+
+rect {
+	stroke: #f7efef;
+  cursor: pointer;
+  -webkit-transition: fill 250ms;
+  transition: fill 250ms;            
+}
+
+rect:hover {
+  fill: #fff;
+}
+
+text {
+  font-size: .8em;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+polyline {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+  stroke-dasharray: 5px;
+}               

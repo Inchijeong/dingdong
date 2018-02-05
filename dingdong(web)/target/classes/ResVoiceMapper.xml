@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dd.mappers.ResVoiceMapper">
+	<resultMap type="ResVoice" id="ResVoiceMap">
+		<result column="res_file_no" property="resFileNo" />
+		<result column="res_file_title" property="resFileTitle" />
+		<result column="res_file_name" property="resFileName" />
+		<result column="res_file_path" property="resFilePath" />
+		<result column="res_file_size" property="resFileSize" />
+		<result column="user_no" property="userNo" />
+		<result column="bell_token" property="bellToken" />
+	</resultMap>
+	
+	<insert id="create">
+		insert into tb_response_file (res_file_title, res_file_name, res_file_path, res_file_size, user_no)
+		values (#{resFileTitle}, #{resFileName}, #{resFilePath}, #{resFileSize}, #{userNo})
+	</insert>
+	
+	<delete id="delete">
+		delete
+		  from tb_response_file
+		 where res_file_no = #{resFileNo}
+	</delete>
+	
+	<select id="getList" resultMap="ResVoiceMap">
+		select res_file_no, res_file_title, res_file_path, res_file_name
+		  from tb_response_file
+		 where user_no = #{userNo} 
+	</select>
+	
+	<select id="getResVoice" resultMap="ResVoiceMap">
+		select r.* , u.bell_token
+  		from tb_response_file as r
+  	 inner join tb_user as u
+  		  on r.user_no = u.user_no
+		 where r.res_file_no = #{resFileNo};
+	</select>
+</mapper>

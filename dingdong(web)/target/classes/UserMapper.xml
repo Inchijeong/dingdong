@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.dd.mappers.UserMapper">
+  
+	<resultMap type="UserRole" id="UserRoleMap">
+		<result column="fno" property="fno" />
+		<result column="role_name" property="roleName" />
+		<result column="email" property="email" />
+	</resultMap>
+	
+	<resultMap type="DingUser" id="UserMap">
+		<result column="user_no" property="userNo" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="user_name" property="userName" />
+		<result column="phone" property="phone" />
+		<result column="regdate" property="regdate" />
+		<result column="updatedate" property="updatedate" />
+		<result column="bell_token" property="bellToken" />
+		<result column="enabled" property="enabled" />
+	</resultMap>
+	
+	<select id="getAuthority" resultMap="UserRoleMap">
+		select role_name, email from tb_user_roles where email =#{email}
+	</select>
+	
+	<insert id ="createMember">
+		insert into tb_user (email, user_name, password, phone)
+		values(#{email}, #{userName}, #{password}, #{phone})
+	</insert>
+	
+	<insert id="defaultRole">
+		insert into tb_user_roles(email, role_name)
+		values(#{email},'USER')
+	</insert>
+	
+	<select id="loginInfo" resultMap="UserMap">
+		select * from tb_user where email = #{email}
+	</select>
+	
+	<select id="loginInfo2" resultMap="UserMap">
+		select * from tb_user where email = #{email}
+	</select>
+	
+	<select id="getUserByDeviceId" resultType="Integer">
+		select user_no 
+  		from tb_user
+ 		 where bell_token = #{deviceId}
+	</select>
+	
+	<update id="userMod">
+		update tb_user
+		set password = #{password},
+			phone = #{phone}
+			where user_no = #{userNo}
+	</update>
+	
+	<select id="findEmail" resultMap="UserMap">
+		select email from tb_user
+		where user_name = #{userName} and phone = #{phone}
+	</select>
+</mapper>

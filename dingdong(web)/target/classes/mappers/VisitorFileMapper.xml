@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dd.mappers.VisitorFileMapper">
+	<resultMap type="VisitorFile" id="VisitorFileMap">
+		<result column="visit_file_no" property="visitFileNo" />
+		<result column="visit_file_path" property="visitFilePath" />
+		<result column="visit_file_name" property="visitFileName" />
+		<result column="visit_file_size" property="visitFileSize" />
+		<result column="visit_file_type" property="visitFileType" />
+		<result column="visit_file_date" property="visitFileDate" />
+		<result column="user_no" property="userNo" />
+	</resultMap>
+	
+	<insert id="create">
+		insert into tb_visitor_file (visit_file_path, visit_file_name, visit_file_size, visit_file_type, user_no)
+		values (#{visitFilePath}, #{visitFileName}, #{visitFileSize}, #{visitFileType}, #{userNo})
+	</insert>
+	
+	<delete id="delete">
+		delete
+		  from tb_visitor_file
+		 where visit_file_no = #{visitFileNo}
+	</delete>
+	
+	<select id="getList" resultMap="VisitorFileMap">
+		select visit_file_no, visit_file_path, visit_file_name, visit_file_size, visit_file_type, visit_file_date, user_no
+		  from tb_visitor_file
+		 where user_no = #{userNo}
+		order by visit_file_no desc
+	</select>
+</mapper>

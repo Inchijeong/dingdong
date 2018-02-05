@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dd.mappers.FileMapper">
+	<resultMap type="VisitorFiles" id="VisitorFilesMap">
+		<result column="visit_file_no" property="visitFileNo" />
+		<result column="visit_file_name" property="visitFileName" />
+		<result column="visit_voice_name" property="visitVoiceName" />
+		<result column="visit_file_date" property="visitFileDate" />
+		<result column="visit_file_type" property="visitFileType" />
+		<result column="user_no" property="userNo" />
+	</resultMap>
+
+	<select id="read" resultType="File">
+		select * 
+		from tb_visitor_file
+		where visit_file_no = #{file_no}
+	</select>
+
+	<delete id="delete">
+		delete from tb_visitor_file 
+		where visit_file_no = #{file_no}
+	</delete>
+
+	<select id="getlist" resultMap="VisitorFilesMap">
+		select * 
+	  	from tb_visitor_files 
+		 where user_no = #{userNo} 
+		   and visit_file_type != 'a'
+			 and visit_file_no between #{listCount} - 8 and #{listCount} 
+		 order by visit_file_no desc
+	</select>
+	
+	<select id="getlistMore" resultMap="VisitorFilesMap">
+		select * 
+		  from tb_visitor_files 
+		 where user_no = #{userNo} 
+		 	 and visit_file_type != 'a'
+		 order by visit_file_no desc limit #{start}, #{end}
+	</select>
+</mapper>

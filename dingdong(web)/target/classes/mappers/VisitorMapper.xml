@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dd.mappers.VisitorMapper">
+
+	<resultMap type="Visitor" id="visitorMap">
+		<result column="user_no" property="userNo" />	
+		<result column="gender" property="gender" />	
+		<result column="age" property="age" />	
+		<result column="generation" property="generation" />
+		<result column="visit_date" property="visitDate" />
+	</resultMap>
+	
+	<resultMap type="VisitCount" id="visitCountMap">
+		<result column="round_date" property="roundDate" />	
+		<result column="generation" property="generation" />
+	</resultMap>
+	
+	<insert id="create">
+		insert into tb_visitor(user_no, gender, age, generation)
+		values(#{userNo}, #{gender}, #{age}, #{generation})
+	</insert>
+	
+	<select id="readVisitor" resultMap="visitorMap">
+		select *
+	    from tb_visitor
+	 	 where user_no = #{userNo};
+	</select>
+	
+	<select id="readGenderCount" resultType="Gender">
+		select gender, count(*) population
+ 		  from tb_visitor
+ 		 where user_no = #{userNo}
+   		 and visit_date between subdate(now(), interval #{term} DAY) and now()
+ 		 group by gender
+ 		 order by gender desc;
+	</select>
+	
+	<select id="readGeneration" resultType="Generation">
+		select generation, count(*) population
+		  from tb_visitor
+		 where user_no = #{userNo}
+		   and visit_date between subdate(now(), interval #{term} DAY) and now()
+		 group by generation
+		 order by generation;
+	</select>
+	
+	<select id="readVisitCount" resultMap="visitCountMap">
+		select sub.round_date, count(*) population
+		from (
+			select date_sub(
+								if(minute(visit_date) >= 30,
+								   date_add(visit_date, interval 60 - minute(visit_date) minute),
+								   date_sub(visit_date, interval minute(visit_date) minute)),
+								interval second(visit_date) second) as round_date
+				from tb_visitor
+			 where user_no = #{userNo}
+				 and visit_date between subdate(now(), interval #{term} DAY) and now()
+					 ) as sub
+		group by date_format(round_date, '%Y%m%d %H');	
+	</select>
+	
+	<select id="readVisitHour" resultType="float">
+		select hour(visit_date) + minute(visit_date) / 60 avg_time
+		  from tb_visitor
+		 where user_no = #{userNo}
+		   and visit_date between subdate(now(), interval #{term} DAY) and now()
+		 order by visit_date;	
+	</select>
+	
+</mapper>
