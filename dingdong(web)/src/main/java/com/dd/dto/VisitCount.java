@@ -1,3 +1,6 @@
+/**
+ * @author Inchijeong
+ */
 package com.dd.dto;
 
 import java.util.Date;

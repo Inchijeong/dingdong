@@ -1,3 +1,6 @@
+/**
+ * @author Inchijeong, Wonnahyun
+ */
 package com.dd.web;
 
 import java.io.ByteArrayOutputStream;

@@ -1,3 +1,6 @@
+/**
+ * @author Inchijeong
+ */
 package com.dd.util;
 
 import java.io.BufferedReader;
